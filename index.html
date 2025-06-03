@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>formulario</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1{
+      text-align: center;
+      color: #333;
+      font-size: 24px;
+    }
+
+    form {
+      background-color: #ffffff;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    input[type="text"],
+    input[type="date"],
+    input[type="number"],
+    textarea {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      font-size: 16px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    input[type="submit"] {
+      background-color: #007BFF;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    input[type="submit"]:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+    <h1>Formulario de trabajo</h1>
+    
+   <form id="formularioTrabajo">
+        
+    <input type="text" name="empresa" placeholder="Nombre Empresa" required>
+
+    <input type="date" name="fecha" required>
+
+    <input type="number" name="ruta" placeholder="N° Ruta" required>
+
+    <input type="number" name="puntos" placeholder="Cantidad de Puntos" required>
+
+    <input type="number" name="positivas" placeholder="Entregas Positivas" required>
+
+    <input type="number" name="negativas" placeholder="Entregas Negativas" required>
+
+    <input type="text" name="peoneta" placeholder="Peoneta">
+
+    <textarea name="observaciones" rows="4" placeholder="Observaciones"></textarea>
+
+    <input type="submit" value="Enviar">
+
+    </form>
+
+
+<script>
+  document.getElementById("formularioTrabajo").addEventListener("submit", function(event) {
+    event.preventDefault();
+
+    const puntos = parseInt(this.puntos.value) || 0;
+    const positivas = parseInt(this.positivas.value) || 0;
+    const negativas = parseInt(this.negativas.value) || 0;
+
+    if (positivas + negativas > puntos) {
+      alert("La suma de entregas positivas y negativas no puede ser mayor que la cantidad de puntos.");
+      return;
+    }
+
+    const datos = {
+      empresa: this.empresa.value,
+      fecha: this.fecha.value,
+      ruta: this.ruta.value,
+      puntos: this.puntos.value,
+      positivas: this.positivas.value,
+      negativas: this.negativas.value,
+      peoneta: this.peoneta.value,
+      observaciones: this.observaciones.value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbxYub3uLVAYkyWO0s7DpkP1YRDjghJZc-H-Epz7LIcbDK7-m7T8F98rwzICzD7bs9gd/exec", { // <-- Reemplaza por tu URL
+      method: 'POST',
+      mode: 'no-cors',
+      body: JSON.stringify(datos),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      alert("Formulario enviado correctamente.");
+      this.reset();
+    })
+    .catch(error => {
+      alert("Error al enviar.");
+      console.error(error);
+    });
+  });
+</script>
+
+
+
+</body>
+</html>
