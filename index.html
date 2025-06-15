@@ -118,6 +118,16 @@
   </form>
 
   <script>
+    let rutaCounter = parseInt(localStorage.getItem('rutaCounter')) || 1;
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const rutaInput = document.querySelector('input[name="ruta"]');
+      if (rutaInput) {
+        rutaInput.value = rutaCounter;
+        rutaInput.readOnly = true; 
+      }
+    });
+
     document.getElementById("formularioTrabajo").addEventListener("submit", function (event) {
       event.preventDefault();
 
@@ -130,10 +140,13 @@
         return;
       }
 
+      const rutaInput = this.ruta;
+      rutaInput.value = rutaCounter;
+
       const datos = {
         empresa: this.empresa.value,
         fecha: this.fecha.value,
-        ruta: this.ruta.value,
+        ruta: rutaInput.value,
         puntos: this.puntos.value,
         positivas: this.positivas.value,
         negativas: this.negativas.value,
@@ -149,15 +162,20 @@
           'Content-Type': 'application/json'
         }
       })
-      .then(response => {
+      .then(() => {
         alert("Formulario enviado correctamente. 😎👍");
         this.reset();
+        rutaCounter++;
+        localStorage.setItem('rutaCounter', rutaCounter);
+        const rutaInputAfterReset = document.querySelector('input[name="ruta"]');
+        rutaInputAfterReset.value = rutaCounter;
+        rutaInputAfterReset.readOnly = true;
       })
       .catch(error => {
         alert("Error al enviar.");
         console.error(error);
       });
-    });
+    }, true);
   </script>
 </body>
 </html>
