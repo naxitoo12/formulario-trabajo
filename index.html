@@ -105,6 +105,7 @@
     <!-- Select de Peoneta -->
     <select name="peoneta" required>
       <option value="">Seleccione Peoneta</option>
+      <option value="Danilo Lieva">Danilo Leiva</option>
       <option value="Ignacio Leiva">Ignacio Leiva</option>
       <option value="Nicolás Rojas">Nicolás Rojas</option>
       <option value="Constanza Leiva">Constanza Leiva</option>
@@ -118,7 +119,7 @@
   </form>
 
   <script>
-    let rutaCounter = parseInt(localStorage.getItem('rutaCounter')) || 14;
+    let rutaCounter = parseInt(localStorage.getItem('rutaCounter')) || 16;
 
     document.addEventListener('DOMContentLoaded', function () {
       const rutaInput = document.querySelector('input[name="ruta"]');
